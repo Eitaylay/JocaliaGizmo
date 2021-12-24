@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "repl_python3_JocaliaGizmo"
-version = "0.1.8"
+version = "0.3"
 description = "currently work in progress"
 authors = ["Htet Ko Win <eitaylay2011@gmail.com>"]
 

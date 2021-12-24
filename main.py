@@ -1,7 +1,8 @@
 from replit import clear
-import math
 from getkey import getkey
 from prettytable import PrettyTable
+import math
+import time
 
 
 going_back = False
@@ -9,66 +10,103 @@ going_back = False
 
 def gold_weight_converter(back):
     """Take input of weight of 15 or 14 pal 2 pyar and change its weight to pure gold weight."""
+    s_price = int(input("Input 100% gold price: "))
     while not back:
         print("Gold weight converter")
-        print("Choose a method!\n 1. 15pal to 100%\n 2. 14pal 2pyar to 100% \n 0. back")
+        print("Choose a method!\n 1. 15pal to 100%\n 2. 14pal 2pyar to 100%\n 3. 14pal \n 0. back")
         gwc_choice = getkey()
         clear()
         if gwc_choice == '0':
             back = True
 
         def gwc_method(gwc_choice, back):
-            # whereas s is မီးလင်း ,  b is ဒင်္ဂါးရွှေ
+            """whereas s is မီးလင်း ,  b is ဒင်္ဂါးရွှေ"""
 
             def a_to_s(s_price, weight):
+                formula = 16 / 17
                 gold_quality = "15 pal"
-                a_price = math.trunc(s_price * (16 / 17))
-                print(f"{gold_quality} gold price: {a_price}")
-                gwc_calculation(a_price, weight, gold_quality)
+                a_price = math.trunc(s_price * formula)
+                gwc_calculation(a_price, weight, gold_quality, formula)
 
             def b_to_s(s_price, weight):
+                formula = 16 / 17.5
                 gold_quality = "14 pal 2 pyar"
-                b_price = math.trunc(s_price * (16 / 17.5))
-                gwc_calculation(b_price, weight, gold_quality)
+                b_price = math.trunc(s_price * formula)
+                gwc_calculation(b_price, weight, gold_quality, formula)
+
+            def c_to_s(c_price, weight):
+                formula = 16 / 18
+                gold_quality = "14 pal"
+                c_price = math.trunc(s_price * formula)
+                gwc_calculation(c_price, weight, gold_quality, formula)
             
-            def gwc_calculation(price, weight, quality):
-                x = PrettyTable()
-                yway_weight = float((kyat * 128 + pal * 8 + yway) / 128)
-                value = math.trunc(yway_weight * price)
-                s_pal, s_kyat = math.modf(value / s_price)
-                s_kyat = int(s_kyat)
-                s_yway, s_pal = math.modf(s_pal * 16)
-                s_pal = int(s_pal)
-                s_yway = round(s_yway * 8, 2)
-                if s_yway >= 8:
-                    s_pal += 1
-                    s_yway = s_yway - 8
-                if s_pal  >= 16:
-                    s_kyat += 1
-                    s_pal = s_pal - 16
-                s_weight = [s_kyat, s_pal, s_yway]
-                x.field_names = ["Quality", quality, "➟", "100%"]
-                x.add_row(["Price", price, " ", s_price])
-                x.add_row(["Weight", weight, " ", s_weight])
-                x.add_row(["Value", value, " ", " "])
-                print(x)
+            def gwc_calculation(price, weight, quality, formula):
+
+                t = PrettyTable()
+                x = [0, 1.5, 2]
+                yway_weight = float(kyat * 128 + pal * 8 + yway)
+                
+                t.field_names = ["Quality", quality, "➟", "100%", "Value"]
+                t.add_row(["Price", price, " ", s_price, "Value"])
+                for sote in x:
+                    
+                    soated_yway = ((128 - sote) / 128) * yway_weight
+                    soated_kpy = soated_yway
+                    so_pal, so_kyat = math.modf(soated_kpy / 128)
+                    so_kyat = int(so_kyat)
+                    so_yway, so_pal = math.modf(so_pal * 16)
+                    so_pal = int(so_pal)
+                    so_yway = round(so_yway * 8, 2)
+                    if so_yway >= 8:
+                        so_yway = so_yway - 8
+                        so_pal += 1
+                    soated_weight = [so_kyat, so_pal, so_yway]
+                    converted_weight = soated_yway * formula
+                    s_pal, s_kyat = math.modf(converted_weight / 128)
+                    s_kyat = int(s_kyat)
+                    s_yway, s_pal = math.modf(s_pal * 16)
+                    s_pal = int(s_pal)
+                    s_yway = round(s_yway * 8, 2)
+                    if s_yway >= 8:
+                        s_yway = s_yway - 8
+                        s_pal += 1
+                    s_weight = [s_kyat, s_pal, s_yway]
+                    value = math.trunc(soated_yway / 128 * price)
+                    t.add_row(["Weight", soated_weight, sote, s_weight, value])
+                print(t)
 
 
             while not back:
-                s_price = int(input("Type pure gold price: "))
-                print("Type weight of the gold")
-                weight = []
-                weight.append(int(input("Kyat: ")))
-                weight.append(int(input("Pal: ")))
-                weight.append(float(input("Yway: ")))
-                kyat = weight[0]
-                pal = weight[1]
-                yway = weight[2]
+                time.sleep(0.4)
+                print("gram or kyat, pal, yway? g or any: ")
+                gram_or_kpy = getkey()
+                # kpy = kyat pal yway
+                clear()
+                time.sleep(0.4)
+                
+                if gram_or_kpy.lower() == 'g':
+                    gram = float(input("Input weight in gram: "))
+                    pal, kyat = math.modf(gram / 16.6)
+                    kyat = int(kyat)
+                    yway, pal = math.modf(pal * 16)
+                    pal = int(pal)
+                    yway = round(yway * 8, 2)
+
+                else:
+                    print("Input weight in (kyat pal yway)")
+                    
+                    kyat = int(input("Kyat: "))
+                    pal = int(input("Pal: "))
+                    yway = float(input("Yway: "))
+
+                weight = [kyat, pal, yway]
 
                 if gwc_choice == '1':
                     a_to_s(s_price, weight)
                 elif gwc_choice == '2':
                     b_to_s(s_price, weight)
+                elif gwc_choice == '3':
+                    c_to_s(s_price, weight)
                 else:
                     print("Invalid input")
 
@@ -101,7 +139,7 @@ def profited_based_value(back):
 
     while not back:
         value = int(input("What is the price?"))
-        percentage = int(input("what is the percentage?"))
+        percentage = float(input("what is the percentage?"))
         act_value = 100 * value / (percentage + 100)
         print(f"Main Value is {act_value}.")
         print("\n'any keys' = again (or) '0' = return")
@@ -145,4 +183,3 @@ while True:
     else:
         print("wrong input!")
 
-    
