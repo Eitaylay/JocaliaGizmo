@@ -19,8 +19,12 @@ def gold_weight_converter(back):
         if gwc_choice == '0':
             back = True
 
+
         def gwc_method(gwc_choice, back):
             """whereas s is မီးလင်း ,  b is ဒင်္ဂါးရွှေ"""
+
+            def q_round(x):
+                return round(x*4)/4
 
             def a_to_s(s_price, weight):
                 formula = 16 / 17
@@ -47,7 +51,7 @@ def gold_weight_converter(back):
                 yway_weight = float(kyat * 128 + pal * 8 + yway)
                 
                 t.field_names = ["Quality", quality, "➟", "100%", "Value"]
-                t.add_row(["Price", price, " ", s_price, "Value"])
+                t.add_row(["Price", price, " ", s_price, ""])
                 for sote in x:
                     
                     soated_yway = ((128 - sote) / 128) * yway_weight
@@ -66,7 +70,7 @@ def gold_weight_converter(back):
                     s_kyat = int(s_kyat)
                     s_yway, s_pal = math.modf(s_pal * 16)
                     s_pal = int(s_pal)
-                    s_yway = round(s_yway * 8, 2)
+                    s_yway = q_round(s_yway * 8)
                     if s_yway >= 8:
                         s_yway = s_yway - 8
                         s_pal += 1
@@ -90,7 +94,7 @@ def gold_weight_converter(back):
                     kyat = int(kyat)
                     yway, pal = math.modf(pal * 16)
                     pal = int(pal)
-                    yway = round(yway * 8, 2)
+                    yway = q_round(yway * 8)
 
                 else:
                     print("Input weight in (kyat pal yway)")
