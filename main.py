@@ -60,7 +60,7 @@ def gold_weight_converter(back):
                     so_kyat = int(so_kyat)
                     so_yway, so_pal = math.modf(so_pal * 16)
                     so_pal = int(so_pal)
-                    so_yway = round(so_yway * 8, 2)
+                    so_yway = q_round(so_yway * 8)
                     if so_yway >= 8:
                         so_yway = so_yway - 8
                         so_pal += 1
