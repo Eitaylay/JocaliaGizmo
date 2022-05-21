@@ -13,7 +13,7 @@ def gold_weight_converter(back):
     s_price = int(input("Input 100% gold price: "))
     while not back:
         print("Gold weight converter")
-        print("Choose a method!\n 1. 15pal to 100%\n 2. 14pal 2pyar to 100%\n 3. 14pal \n 0. back")
+        print("Choose a method!\n 1. 15pal to 100%\n 2. 14pal 2pyar to 100%\n 3. 14pal to 100% \n 0. back")
         gwc_choice = getkey()
         clear()
         if gwc_choice == '0':
@@ -21,7 +21,7 @@ def gold_weight_converter(back):
 
 
         def gwc_method(gwc_choice, back):
-            """whereas s is မီးလင်း ,  b is ဒင်္ဂါးရွှေ"""
+            """whereas s is မီးလင်း , a is 15ပဲရည် b is ဒင်္ဂါးရွှေ"""
 
             def q_round(x):
                 return round(x*4)/4
@@ -88,7 +88,7 @@ def gold_weight_converter(back):
                 clear()
                 time.sleep(0.4)
                 
-                if gram_or_kpy.lower() == 'g':
+                if gram_or_kpy.lower() == 'g' or gram_or_kpy.lower() == 'ါ':
                     gram = float(input("Input weight in gram: "))
                     pal, kyat = math.modf(gram / 16.6)
                     kyat = int(kyat)
@@ -156,7 +156,7 @@ def profited_based_value(back):
 def diamond_Ratisize_calculation(back):
     """Traditional diamond size calculation"""
 
-    while not back:    
+    while not back:
         ct_weight = float(input("Please input the Carat Weight: "))
         count_diamond= int(input("Please input the Diamond's count: "))
         diamond_size = (11 * count_diamond) / (10 * ct_weight)
@@ -186,4 +186,3 @@ while True:
         diamond_Ratisize_calculation(going_back)
     else:
         print("wrong input!")
-

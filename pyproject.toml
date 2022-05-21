@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "repl_python3_JocaliaGizmo"
-version = "0.3"
+version = "0.3.2"
 description = "currently work in progress"
 authors = ["Htet Ko Win <eitaylay2011@gmail.com>"]
 
@@ -8,7 +8,7 @@ authors = ["Htet Ko Win <eitaylay2011@gmail.com>"]
 python = "^3.8"
 replit = "^3.1.0"
 getkey = "^0.6.5"
-prettytable = "^2.1.0"
+prettytable = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
 
